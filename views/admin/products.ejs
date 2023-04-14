@@ -1,0 +1,127 @@
+<% if (action == 'add') { %>
+    <div class="p-5 border-[1px] dark:border-gray-900 rounded-md dark:bg-gray-900/50">
+        <h5 class="font-bold text-xl">Add New Product</h5>
+        <form id="form__Create__Product">
+            <div class="flex flex-col gap-3">
+                <div class="flex flex-col gap-1">
+                    <label for="productName" class="text-lg">Product name:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Name" name="productName" placeholder="XXX">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productName" class="text-lg">Product description:</label>
+                    <textarea class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Description" name="productDescription"></textarea>
+                    <p class="text-slate-400 text-sm">HTML is allowed.</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productThumbnail" class="text-lg">Product thumbnail:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Thumbnail" name="productThumbnail" placeholder="https://cdn.xxx.com/XXX">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productIcon" class="text-lg">Product icon:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Icon" name="productIcon" placeholder="https://cdn.xxx.com/XXX">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productPrice" class="text-lg">Product price:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="number" id="product__Price" name="productPrice" placeholder="0.00">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="productVersion" class="text-lg">Product version:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Version" name="productVersion" placeholder="1.0.2">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="supportedVersions" class="text-lg">Supported Versions:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="supported__Versions" name="supportedVersions" placeholder="MC 1.8-1.19.2, djs 14.2-14.8">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="downloadUrl" class="text-lg">Download URL:</label>
+                    <input class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="download__Url" name="downloadUrl" placeholder="https://mega.nz/...., https://dropbox.com/..., https://mediafire.com/...">
+                </div>
+
+                <div class="flex flex-row items-center gap-7">
+                    <label for="productStatus" class="text-lg">Active:</label>
+                    <input type="checkbox" id="product__Status" name="productStatus" />
+                </div>
+                <button type="submit" class="w-96 mx-auto text-md bg-green-500 p-3 rounded-md hover:bg-green-600/80 duration-300 transition-colors text-white">Submit</button>
+            </div>
+        </form>
+    </div>
+<% } else if (action == 'list') { %>
+    <div class="flex flex-col gap-3 p-5 border-[1px] dark:border-gray-900 rounded-md dark:bg-gray-900/50">
+        <div class="font-bold text-xl">Product List</div>
+        <table id="product__Table" class="table-fixed mx-auto w-full">
+            <thead>
+                <tr>
+                    <th clas="w-2/12">Name</th>
+                    <th clas="w-2/12">Thumbnail</th>
+                    <th clas="w-4/12">Icon</th>
+                    <th clas="w-4/12">Price</th>
+                    <th clas="w-2/12">Status</th>
+                    <th clas="w-6/12">ID</th>
+                    <th clas="w-3/12"></th>
+                </tr>
+            </thead>
+            <tbody class="mx-auto">
+               
+            </tbody>
+            <caption class="caption-bottom mt-2 text-sm text-slate-400">
+                <span id="product__Number">0</span> Records found.
+            </caption>
+        </table>
+    </div>
+<% } else if (action == 'edit' && product != null) { %>
+    <div class="p-5 border-[1px] dark:border-gray-900 rounded-md dark:bg-gray-900/50">
+        <h5 class="font-bold text-xl">Edit Product (<%= product.id %>)</h5>
+        <form id="form__Edit__Product">
+            <div class="flex flex-col gap-3">
+                <div class="flex flex-col gap-1">
+                    <label for="productName" class="text-lg">Product name:</label>
+                    <input value="<%= product.name %>" class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Name" name="productName" placeholder="XXX">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productName" class="text-lg">Product description:</label>
+                    <textarea class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Description" name="productDescription"><%= product.description %></textarea>
+                    <p class="text-slate-400 text-sm">HTML is allowed.</p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productThumbnail" class="text-lg">Product thumbnail:</label>
+                    <input value="<%= product.thumbnail %>" class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Thumbnail" name="productThumbnail" placeholder="https://cdn.xxx.com/XXX">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productIcon" class="text-lg">Product icon:</label>
+                    <input value="<%= product.iconURL %>" class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Icon" name="productIcon" placeholder="https://cdn.xxx.com/XXX">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productPrice" class="text-lg">Product price:</label>
+                    <input value="<%= product.price %>" class="bg-transparent p-2 border-[1px] rounded-md" type="number" id="product__Price" name="productPrice" placeholder="0.00">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="productVersion" class="text-lg">Product version:</label>
+                    <input value="<%= product.version %>" class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="product__Version" name="productVersion" placeholder="1.0.2">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="supportedVersions" class="text-lg">Supported Versions:</label>
+                    <input value="<%= product.supportedVersions %>" class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="supported__Versions" name="supportedVersions" placeholder="MC 1.8-1.19.2, djs 14.2-14.8">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label for="downloadUrl" class="text-lg">Download URL:</label>
+                    <input value="<%= product.downloadUrl %>" class="bg-transparent p-2 border-[1px] rounded-md" type="text" id="download__Url" name="downloadUrl" placeholder="https://mega.nz/...., https://dropbox.com/..., https://mediafire.com/...">
+                </div>
+
+                <div class="flex flex-row items-center gap-7">
+                    <label for="productStatus" class="text-lg">Active:</label>
+                    <input type="checkbox" id="product__Status" name="productStatus" <%= product.active ? 'checked' : '' %> />
+                </div>
+                <input type="text" hidden id="product__Id" name="productId" value="<%= product.id %>" />
+                <button type="submit" class="w-96 mx-auto text-md bg-green-500 p-3 rounded-md hover:bg-green-600/80 duration-300 transition-colors text-white">Submit</button>
+            </div>
+        </form>
+    </div>
+<% } else { %>
+    <script>window.location = "/admin/products"</script>
+<% } %>
+<script src="/js/products.js"></script>

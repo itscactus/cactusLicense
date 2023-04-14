@@ -1,0 +1,48 @@
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+    <div class="row-span-3 lg:col-span-4 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 p-10 rounded-md">
+        <h5 class="font-semibold text-xl">Cactus - License Manager</h5>
+        <p class="text-slate-400">Welcome to Cactus License Manager Dashboard!</p>
+        <p class="text-slate-400">Here you can view your own license, and view the Web shop!</p>
+    </div>
+    <!--  -->
+    <div class="flex flex-row items-center gap-5 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 p-5 rounded-md"> 
+        <div class="bg-indigo-500 text-white p-5 rounded-md dark:bg-blue-500">
+            <i class="fa-solid fa-dollar fa-xl"></i>
+        </div>
+        <div>
+            <span id="salesNumber">0</span> Sales
+        </div>
+    </div>
+    <div class="flex flex-row items-center gap-5 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 p-5 rounded-md">
+        <div class="bg-indigo-500 text-white p-5 rounded-md dark:bg-blue-500">
+            <i class="fa-solid fa-users fa-xl"></i>
+        </div>
+        <div>
+            <span id="usersNumber">0</span> Users
+        </div>
+    </div>
+    <div class="flex flex-row items-center gap-5 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 p-5 rounded-md">
+        <div class="bg-indigo-500 text-white p-5 rounded-md dark:bg-blue-500">
+            <i class="fa-solid fa-boxes fa-xl"></i>
+        </div>
+        <div>
+            <span id="productNumber">0</span> Products
+        </div>
+    </div>
+    <div class="flex flex-row items-center gap-5 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 p-5 rounded-md">
+        <div class="bg-indigo-500 text-white p-5 rounded-md dark:bg-blue-500">
+            <i class="fa-solid fa-bolt fa-xl"></i>
+        </div>
+        <div>
+            <span id="licensesNumber">0</span> Licenses
+        </div>
+    </div>
+    <!--  -->
+    <div class="flex flex-col gap-4 row-span-1 lg:col-span-4 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 p-5 rounded-md">
+        <h1 class="text-xl font-bold">Popular Products</h1>
+        <div id="popularProducts" class="grid lg:grid-cols-4 gap-3">
+            
+        </div>
+    </div>
+</div>
+<script src="/js/ajax.js"></script>

@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cactus License Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/themeManager.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-800 dark:text-white">
+    <div class="flex flex-row items-center justify-between dark:bg-gray-900/50 p-2 border-b-[1px] dark:border-gray-500">
+        <div class="p text-white text-4xl cursor-pointer" onclick="openSidebar()">
+            <i class="fa fa-bars px-2 bg-gray-900 rounded-md"></i>
+        </div>
+        <div>
+            <input id="user__Search" class="bg-transparent border-[1px] dark:border-gray-900 p-2 rounded-md" type="text" placeholder="Search for User">
+            <button id="user__Search__button" onclick="searchUser()" class="bg-green-500 p-3 text-lg rounded-md text-white"><i class="fa-solid fa-search"></i></button>
+        </div>
+    </div>
+    <div class="sidebar translate-x-[-100%] fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-white border-r-[0.2px] dark:border-gray-600 dark:bg-gray-900">
+        <div class="text-gray-100 text-xl">
+            <div class="p-2.5 mt-1 flex items-center text-black dark:text-gray-200 flex flex-row justify-between">
+                <div class="flex flex-row items-center">
+                    <img src="/logo.png" alt="logo" class="w-8 h-8">
+                    <h1 class="font-bold text-[15px] ml-3">Cactus License Manager</h1>
+                </div>
+                <i class="fa-solid fa-x cursor-pointer" onclick="openSidebar()"></i>
+            </div>
+            <div class="my-2 bg-gray-600 h-[1px]"></div>
+        </div>
+        <div onclick="window.location = '/admin'" class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black dark:text-white">
+            <i class="fa-solid fa-house"></i>
+            <span class="text-[15px] ml-4 font-bold">Home</span>
+        </div>
+        <div class="my-4 bg-gray-600 h-[1px]"></div>
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black dark:text-white" onclick="dropdown('products')">
+            <i class="fa-solid fa-boxes"></i>
+            <div class="flex justify-between w-full items-center">
+                <span class="text-[15px] ml-4 font-bold">Products</span>
+                <span class="text-sm rotate-180" id="arrow-products">
+                    <i class="fa fa-chevron-down"></i>
+                </span>
+            </div>
+        </div>
+        <div class="hidden text-left text-sm mt-2 w-4/5 mx-auto text-black dark:text-white font-bold" id="submenu-products">
+            <h1 onclick="window.location = '/admin/products/add'" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 flex flex-row items-center gap-3">
+                <i class="fa fa-plus"></i>
+                <span>Add</span>
+            </h1>
+            <h1 onclick="window.location = '/admin/products/'" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 flex flex-row items-center gap-3">
+                <i class="fa fa-table"></i>
+                <span>List</span>
+            </h1>
+        </div>
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black dark:text-white" onclick="dropdown('licenses')">
+            <i class="fa-solid fa-boxes"></i>
+            <div class="flex justify-between w-full items-center">
+                <span class="text-[15px] ml-4 font-bold">Licenses</span>
+                <span class="text-sm rotate-180" id="arrow-licenses">
+                    <i class="fa fa-chevron-down"></i>
+                </span>
+            </div>
+        </div>
+        <div class="hidden text-left text-sm mt-2 w-4/5 mx-auto text-black dark:text-white font-bold" id="submenu-licenses">
+            <h1 onclick="window.location = '/admin/licenses/add'" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 flex flex-row items-center gap-3">
+                <i class="fa fa-plus"></i>
+                <span>Add</span>
+            </h1>
+            <h1 onclick="window.location = '/admin/licenses/'" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 flex flex-row items-center gap-3">
+                <i class="fa fa-table"></i>
+                <span>List</span>
+            </h1>
+        </div>
+        <button onclick="changeTheme()"> tema değiştir </button>
+
+    </div>
+    <div id="search__Content" class="flex flex-col gap-3 hidden p-5 rounded-md md:container mt-10 mx-auto border-[1px] dark:border-gray-900/50 dark:bg-gray-900">
+        <div class="font-semibold">Search results for <span id="search__Input">c</span></div>
+        <table id="users__Search__Table" class="table-fixed mx-auto w-full">
+            <thead>
+                <tr>
+                    <th clas="w-2/12">Username</th>
+                    <th clas="w-2/12">E-Mail</th>
+                    <th clas="w-4/12">Licenses</th>
+                    <th clas="w-6/12">ID</th>
+                    <th clas="w-3/12"></th>
+                </tr>
+            </thead>
+            <tbody class="mx-auto">
+               
+            </tbody>
+            <caption class="caption-bottom mt-2 text-sm text-slate-400">
+                <span id="search__Number__Found">0</span> Records found.
+            </caption>
+        </table>
+    </div>
+    <div id="body__Content" class="md:container mt-10 mx-auto">
+        <div class="rounded-md hidden p-3 border-[1px] dark:border-gray-900/50 mb-3 dark:bg-gray-900 flex flex-row items-center gap-4" id="alert__Box">
+            <div class="hidden p-4 bg-red-500 rounded-md" id="alert__Error">
+                <i class="fa-solid fa-x"></i>
+            </div>
+            <div class="hidden p-4 bg-orange-500 text-white rounded-md" id="alert__Warning">
+                <i class="fa-solid fa-exclamation"></i>
+            </div>
+            <div class="hidden p-4 bg-green-500 text-white rounded-md" id="alert__Success">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div class="hidden p-4 bg-blue-500 text-white rounded-md" id="alert__Info">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div class="flex flex-col items-start">
+                <p class="font-bold text-xl" id="alert__Title">Error!</p>
+                <span id="alert__Message">Error Message</span>
+            </div>
+        </div>
+        <%- body %>
+    </div>
+    <script src="/js/admin.js"></script>
+</body>
+</html>

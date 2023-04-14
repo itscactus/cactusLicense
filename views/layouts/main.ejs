@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cactus License Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/themeManager.js"></script>
+</head>
+<body class="bg-white dark:bg-gray-800 dark:text-white">
+    <div class="flex flex-row items-center justify-between dark:bg-gray-900/50 p-2 border-b-[1px] dark:border-gray-500">
+        <div class="md:hidden">
+            <button onclick="toggleNavbar();">
+                <i class="fa-solid fa-bars fa-xl"></i>
+            </button>
+            <div id="navbar__Content" class="absolute flex flex-col gap-3 rounded-md hidden mt-10 p-3 bg-gray-900 md:hidden">
+                <a href="/" class="dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-sm">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/products" class="dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-sm">
+                    <i class="fa-solid fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <% if(profile && profile.permission == 1) { %>
+                    <a href="/admin" class="dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-sm">
+                        <i class="fa-solid fa-hammer"></i>
+                        <span>Admin</span>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+        <div class="flex flex-row gap-2 items-center">
+            <img src="/logo.png" alt="logo" class="w-12 h-12">
+            <p class="hidden md:block font-semibold text-lg">CactusLicense</p>
+        </div>
+        <div class="hidden md:block flex flex-col md:gap-5">
+            <a href="/" class="dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-sm">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="/products" class="dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-sm">
+                <i class="fa-solid fa-box"></i>
+                <span>Products</span>
+            </a>
+            <% if(profile && profile.permission == 1) { %>
+                <a href="/admin" class="dark:hover:bg-white/20 hover:bg-black/20 p-2 rounded-sm">
+                    <i class="fa-solid fa-hammer"></i>
+                    <span>Admin</span>
+                </a>
+            <% } %>
+        </div>
+        <div class="justify-end">
+            <% if (profile) { %>
+                <button onfocus="toggleProfileSelect();" onfocusout="toggleProfileSelect();" class="flex flex-row gap-2 p-3 pr-6 pl-6 rounded-md duration-300 transition-colors hover:bg-black/20 dark:text-white font-semibold items-center ">
+                    <img src="https://cdn.discordapp.com/avatars/<%= profile.id %>/<%= profile.avatar %>.png" alt="User Profile Image" class="w-8 h-8 rounded-full">
+                    <div class="flex flex-row">
+                        <p class="font-semibold"><%= profile.username %></p>
+                        <p class="font-medium">#<%= profile.discriminator %></p>
+                    </div>
+                </button>
+                <div id="profile_select_menu" class="hidden flex flex-col mt-2 absolute border-[1px] bg-white dark:border-gray-900 dark:bg-gray-900 p-3 items-start rounded-md">
+                    <a class="p-2 hover:bg-black/20 dark:hover:bg-white/20 rounded-md" href="/license">My Licenses</a>
+                    <a class="p-2 hover:bg-black/20 dark:hover:bg-white/20 rounded-md" href="/profile">My profile</a>
+                    <a class="text-red-500 p-2 hover:bg-black/20 dark:hover:bg-white/20 rounded-md" href="/logout">Log Out</a>
+                </div>
+            <% } else { %>
+                <button onclick="window.location = '/login'" class="p-3 pr-6 pl-6 rounded-md bg-blue-500 duration-300 transition-colors hover:bg-blue-600/80 text-white font-semibold">Log In</button>
+            <% } %>
+        </div>
+    </div>
+    <div class="md:container mt-10 mx-auto">
+        <%- body %>
+    </div>
+    <button onclick="changeTheme()"> tema değiştir </button>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<% if (action == 'products') { %>
+    <div class="container shadow-md p-5 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 rounded-md">
+        <h5 class="text-lg font-semibold">Products (<%= products.filter((product) => product.active == true).length %>)</h5>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+            <% products.filter((product) => product.active == true).map((product) => { %>
+                <div class="border-[1px] dark:border-slate-500 shadow-md rounded-md p-3 dark:bg-gray-900/50 flex flex-col gap-3 items-stretch">
+                    <div class="mx-auto">
+                        <img class="w-96 duration-500 hover:translate-y-[-3px] hover:rounded-md" src="<%= product.thumbnail %>">
+                    </div>
+                    <div class="p-1 flex flex-row gap-4 justify-between items-center">
+                        <div>
+                            <h5 class="font-semibold text-xl uppercase"><%= product.name %></h5>
+                        </div>
+                        <div class="rounded-md text-white bg-green-500 p-1">
+                            <span><%= product.price %> $</span>
+                        </div>
+                    </div>
+                    <div>
+                        <%- product.description.split(" ").slice(0,10).join(" ") %>
+                    </div>
+                    <button onclick="window.location = '/products/<%= product.id %>'" class="text-white bg-green-500 p-2 font-medium rounded-md hover:bg-green-600/80 duration-300 transition-colors">VIEW PRODUCT PAGE<button>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+<% } else if(action == 'view_product') { 
+    let product = products.filter((prd) => prd.id == id && prd.active == true)[0]; %>
+    <% if(product != null) { %>
+        <div class="container grid grid-cols-1 lg:grid-cols-4 gap-2">
+            <div class="shadow-md col-span-3 p-5 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 rounded-md">
+                <div class="flex flex-col gap-2">
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <h5 class="font-semibold text-xl uppercase"><%= product.name %></h5>
+                        </div>
+                        <div class="rounded-md text-white bg-green-500 p-1">
+                            <span><%= product.price %> $</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="<%= product.thumbnail %>" class="rounded-md mx-auto min-w-[75%]">
+                    </div>
+                    <div>
+                        <%- product.description %>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow-md p-5 md:col-span-1 border-[1px] dark:border-gray-900 dark:bg-gray-900/50 rounded-md">
+                <div class="flex flex-row justify-between items-center mb-3">
+                    <h1 class="text-xl font-semibold">Product Info</h1>
+                    <img src="<%= product.iconURL %>" class="w-16 h-16 rounded-lg">
+                </div>
+                <div class="flex flex-row justify-between text-sm xl:text-lg items-center">
+                    <p class="font-medium">ID:</p>
+                    <span id="productId"><%= product.id %></span>
+                </div>
+                <div class="flex flex-row justify-between text-sm xl:text-lg items-center">
+                    <p class="font-medium">Price:</p>
+                    <span><%= product.price %> $</span>
+                </div>
+                <div class="flex flex-row justify-between text-sm xl:text-lg items-center">
+                    <p class="font-medium">Sales:</p>
+                    <span><%= sales.filter((sale) => sale.productId == product.id).length %></span>
+                </div>
+                <div class="flex flex-row justify-between text-sm xl:text-lg items-center">
+                    <p class="font-medium">Published At:</p>
+                    <span><%= parseTime(product.createdAt) %></span>
+                </div>
+                <div class="flex flex-row justify-between text-sm xl:text-lg items-center">
+                    <p class="font-medium">Version:</p>
+                    <span><%= product.version %></span>
+                </div>
+                <% if(product.supportedVersions != null) {%>
+                    <div class="flex flex-row justify-between text-sm xl:text-lg items-center">
+                        <p class="font-medium">Supported Versions:</p>
+                        <span><%= product.supportedVersions %></span>
+                    </div>
+                <% }%>
+            </div>
+        </div>
+    <% } else { %>
+        <script>window.location = '/products'</script>
+    <% } %>
+<% } else { %>
+    <script>window.location = '/products'</script>
+<% } %>
